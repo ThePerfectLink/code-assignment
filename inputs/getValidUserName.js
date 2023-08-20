@@ -9,10 +9,10 @@ export async function getValidUserName() {
       message: "Who are you?",
       choices: friends
     }), 
-    
+
     // Get start date
     await input({
-      message: "Input a start date (format YYYY/MM/DD):",
+      message: "Input a start date for the challenge (format YYYY/MM/DD):",
       type: "input",
       validate: (input) => {
         var date = Date.parse(input);
