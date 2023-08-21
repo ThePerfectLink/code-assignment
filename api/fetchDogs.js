@@ -9,11 +9,11 @@ const cacheFileName = "dog-cache.json";
 const cacheFilePath = path.join(__dirname, cacheFileName);
 
 export async function fetchDogs() {
-  const cachedData = null;
   try{
-    cachedData = await readCache();
+    const cachedData = await readCache();
     return cachedData;
   } catch {
+    console.log("write");
     try {
       const resp = await fetch("https://dog.ceo/api/breeds/list/all");
       const dogList = await resp.json();
@@ -43,16 +43,7 @@ function flatten(data) {
 }
 
 async function readCache() {
-  return fs.readFileSync(cacheFilePath, 'utf8', (error, data) => {
-    if(error) {
-      console.log(error);
-      return null;
-    }
-    else if (data.length != 0 ){
-      return JSON.parse(JSON.parse(data));
-    }
-    return null;
-  })
+  return JSON.parse(fs.readFileSync(cacheFilePath, {encoding: 'utf8', flag: "r"}));
 }
 
 async function writeCache(data) {
